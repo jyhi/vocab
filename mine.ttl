@@ -1,4 +1,4 @@
-# MINE INventory Engine
+# MINE INventory Engine Ontology.
 #
 # SPDX-FileCopyrightText: 2023 Junde Yhi <junde@yhi.moe>
 # SPDX-License-Identifier: CC-BY-4.0
@@ -6,76 +6,92 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix : <http://purl.yhi.moe/vocab/mine#> .
 
 <http://purl.yhi.moe/vocab/mine> a owl:Ontology ;
+  rdfs:label "MINE" ;
+  rdfs:comment "MINE INventory Engine" ;
   dcterms:title "MINE Vocabulary" ;
-  dcterms:description "MINE INventory Engine is a Semantic Web solution to stock management." ;
+  dcterms:description "MINE is a Semantic Web solution to stock management." ;
+  dcterms:creator <http://purl.yhi.moe/about/jyhi> ;
   owl:versionInfo "0.1" ;
   owl:ontologyIRI <http://purl.yhi.moe/vocab/mine> ;
   owl:versionIRI <http://purl.yhi.moe/vocab/mine/0.1> ;
+  owl:imports
+    <http://purl.org/dc/terms> , # dcterms:
+    <https://schema.org/version/21.0/schemaorg-all-http.rdf> ; # schema:
   .
 
 #################### Classes ####################
 
-:Container a rdfs:Class ;
-  rdfs:subClassOf schema:Product ;
+:Container a owl:Class ;
+  rdfs:subClassOf schema:Product, schema:ProductCollection, dcterms:Location ;
   rdfs:label "Container" ;
-  rdfs:comment "A container enclose other products for storing and moving as a single part." ;
+  rdfs:comment "A container enclosing other products for storing and moving as a single part." ;
   .
 
-:Lid a rdfs:Class ;
+:Lid a owl:Class ;
   rdfs:subClassOf schema:Product ;
   rdfs:label "Lid" ;
   rdfs:comment "A separate cover preventing dust from entering a Container." ;
   .
 
-:Box a rdfs:Class;
-  rdfs:subClassOf :Container ;
-  rdfs:label "Box" ;
-  rdfs:comment "A Container with a Lid attached." ;
-  .
-
 #################### Properties ####################
 
-:in a rdfs:Property ;
+:at a owl:ObjectProperty ;
+  rdfs:label "is at" ;
+  rdfs:comment "The Subject Individual is at the Object Individual." ;
+  rdfs:domain owl:NamedIndividual ;
+  rdfs:range owl:NamedIndividual ;
+  .
+
+:with a owl:ObjectProperty ;
+  rdfs:label "is with" ;
+  rdfs:comment "The Subject Individual is with the Object Individual." ;
+  rdfs:domain owl:NamedIndividual ;
+  rdfs:range owl:NamedIndividual ;
+  .
+
+:in a owl:ObjectProperty ;
   rdfs:label "is in" ;
-  rdfs:comment "The Subject is inside the Object." ;
-  rdfs:domain rdfs:Resource ;
-  rdfs:range rdfs:Resource ;
+  rdfs:comment "The Subject Individual is inside the Object Individual." ;
+  rdfs:domain owl:NamedIndividual ;
+  rdfs:range owl:NamedIndividual ;
   .
 
-:on a rdf:Property ;
+:on a owl:ObjectProperty ;
   rdfs:label "is on" ;
-  rdfs:comment "The Subject is on the top of the Object." ;
-  rdfs:domain rdfs:Resource ;
-  rdfs:range rdfs:Resource ;
+  rdfs:comment "The Subject Individual is on the Object Individual." ;
+  rdfs:domain owl:NamedIndividual ;
+  rdfs:range owl:NamedIndividual ;
   .
 
-:under a rdf:Property ;
+:under a owl:ObjectProperty ;
   rdfs:label "is under" ;
-  rdfs:comment "The Subject is under the bottom of the Object." ;
-  rdfs:domain rdfs:Resource ;
-  rdfs:range rdfs:Resource ;
+  rdfs:comment "The Subject Individual is underneath the Object Individual." ;
+  rdfs:domain owl:NamedIndividual ;
+  rdfs:range owl:NamedIndividual ;
   .
 
-:nextTo a rdf:Property ;
-  rdfs:label "next to" ;
-  rdfs:comment "The Subject is next to the Object." ;
-  rdfs:domain rdfs:Resource ;
-  rdfs:range rdfs:Resource ;
+:nextTo a owl:ObjectProperty ;
+  rdfs:label "is next to" ;
+  rdfs:comment "The Subject Individual is next to the Object Individual." ;
+  rdfs:domain owl:NamedIndividual ;
+  rdfs:range owl:NamedIndividual ;
   .
 
-:near a rdf:Property ;
+:near a owl:ObjectProperty ;
   rdfs:label "is near" ;
-  rdfs:comment "The Subject is near the Object." ;
-  rdfs:domain rdfs:Resource ;
-  rdfs:range rdfs:Resource ;
+  rdfs:comment "The Subject Individual is near the Object Individual." ;
+  rdfs:domain owl:NamedIndividual ;
+  rdfs:range owl:NamedIndividual ;
   .
 
-:purpose a rdf:Property ;
+:purpose a owl:DatatypeProperty ;
   rdfs:label "has purpose" ;
   rdfs:comment "What is the intended usage of the Subject." ;
-  rdfs:domain rdfs:Resource ;
-  rdfs:range rdfs:Resource ;
+  rdfs:domain owl:Thing ;
+  rdfs:range xsd:string ;
   .
